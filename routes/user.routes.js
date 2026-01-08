@@ -5,6 +5,8 @@ import { getAllUsers } from "../controllers/userList.controller.js";
 import auth from "../middleware/auth.middleware.js";
 import {getMyChats} from "../controllers/chatUserList.controller.js";
 import {sendChatRequest,getReceivedRequests,getSentRequests,acceptChatRequest} from "../controllers/chatRequest.controller.js"
+import { markMessagesSeen } from "../controllers/markAsRead.controller.js";
+import { getMessagesByChat } from "../controllers/getChatMessage.controller.js";
 
 const router = express.Router();
 
@@ -28,6 +30,8 @@ router.post("/user/accept/:id", auth, acceptChatRequest);
 /* ================== CHAT =======================*/
 
 router.get("/chats", auth, getMyChats);
+router.get("/messages/:chatId", auth, getMessagesByChat);
+router.post("/messages/mark-as-seen/:chatId", auth, markMessagesSeen);
 
 
 export default router;
